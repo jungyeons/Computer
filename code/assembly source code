@@ -1,0 +1,66 @@
+		.header
+		count 0
+		sum 4
+		i 8
+		number 12
+		
+		.code
+//		count = 20;
+		ston @count 10
+		
+//		sum = 0;
+		ston @sum 0
+		
+//		i = 0;	
+		ston @i 0
+start:	
+// read i
+		lda @i Rac1
+// read count
+		lda @count Rac2
+// i - count
+		sub Rac1 Rac2
+// i >= count then jump to end
+		etj end
+		gtj end
+		
+// read sum
+		lda @sum Rac1
+// ac2 = i
+		lda @i Rac2
+// add sum = sum + i
+		add Rac1 Rac2
+		stor @sum Rac1
+// i++
+		lda @i Rac1
+		mov Rac2 1
+		add Rac1 Rac2
+		stor @i Rac1
+		jump start
+end:	
+// System.out.println(sum);
+		lda @sum Rac1
+		print Rac1
+//	int number = input();		
+		input Rac1
+		stor @number Rac1
+//	System.out.println(number);		
+		lda @number Rac1
+		print Rac1		
+//	if(number > 200)
+		lda @number Rac1
+		mov Rac2 200
+		sub Rac1 Rac2
+		gtj case1
+
+//	System.out.println(0);
+		mov Rac1 0
+		print Rac1
+		jump case2
+case1:
+//	System.out.println(1);
+		mov Rac1 1
+		print Rac1
+case2:		
+		halt
+		.end
